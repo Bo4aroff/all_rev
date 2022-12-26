@@ -8,14 +8,8 @@ import base64
 from io import StringIO, BytesIO
 import streamlit as st
 
-with st.form('Search_words'):
-    play_market = st.text_input('Play Market_ID')
-    app_store = st.text_input('App Store_ID')
 
-    search = st.form_submit_button("Поиск")
-    if search:
-        step_one = [play_market]
-        step_two = [app_store]
+
         
 def generate_excel_download_link(df_2):
     # Credit Excel: https://discuss.streamlit.io/t/how-to-add-a-download-excel-csv-function-to-a-button/4474/5
@@ -26,10 +20,14 @@ def generate_excel_download_link(df_2):
     href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="data_download.xlsx">Download Excel File</a>'
     return st.markdown(href, unsafe_allow_html=True)
 
+with st.form('Search_words'):
+    play_market = st.text_input('Play Market_ID')
+    app_store = st.text_input('App Store_ID')
 
+    search = st.form_submit_button("Поиск")
 
 g_reviews = reviews_all(
-        step_one,
+        play_market,
         sleep_milliseconds=0, # defaults to 0
         lang='ru', # defaults to 'en'
         country='us', # defaults to 'us'
@@ -38,20 +36,20 @@ g_reviews = reviews_all(
 g_df = pd.DataFrame(np.array(g_reviews),columns=['review'])
 g_df2 = g_df.join(pd.DataFrame(g_df.pop('review').tolist()))
 
-g_df2.drop(columns={'userImage', 'reviewCreatedVersion'},inplace = True)
+g_df2.drop(columns={'userImage', 'reviewCreatedVersion'},inplace = True, axis=1)
 g_df2.rename(columns= {'score': 'rating','userName': 'user_name', 'reviewId': 'review_id', 'content': 'review_description', 'at': 'review_date', 'replyContent': 'developer_response', 'repliedAt': 'developer_response_date', 'thumbsUpCount': 'thumbs_up'},inplace = True)
 g_df2.insert(loc=0, column='source', value='Google Play')
 g_df2.insert(loc=3, column='review_title', value=None)
 
 
-a_reviews = AppStore('ru', step_two)
+a_reviews = AppStore('ru', app_store)
 a_reviews.review()
 
 
 a_df = pd.DataFrame(np.array(a_reviews.reviews), columns=['review'])
 a_df2_ = a_df.join(pd.DataFrame(a_df.pop('review').tolist()))
 
-a_df2_.drop(columns={'isEdited'},inplace = True)
+a_df2_.drop(columns={'isEdited'},inplace = True, axis=1)
 a_df2_.insert(loc=0, column='source', value='App Store')
 a_df2_['developer_response_date'] = None
 a_df2_['thumbs_up'] = None
