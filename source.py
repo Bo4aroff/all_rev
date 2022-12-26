@@ -20,14 +20,15 @@ def generate_excel_download_link(df_2):
     href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="data_download.xlsx">Download Excel File</a>'
     return st.markdown(href, unsafe_allow_html=True)
 
-# with st.form('Search_words'):
-#     play_market = st.text_input('Play Market_ID')
-#     app_store = st.text_input('App Store_ID')
+with st.form('Search_words'):
+    play_market = st.text_input('Play Market_ID')
+    app_store = st.text_input('App Store_ID')
 
-#     search = st.form_submit_button("Поиск")
+    search = st.form_submit_button("Поиск")
+
 
 g_reviews = reviews_all(
-        'ru.dmo.motherandchild',
+        {play_market},
         sleep_milliseconds=0, # defaults to 0
         lang='ru', # defaults to 'en'
         country='us', # defaults to 'us'
@@ -42,7 +43,7 @@ g_df2.insert(loc=0, column='source', value='Google Play')
 g_df2.insert(loc=3, column='review_title', value=None)
 
 
-a_reviews = AppStore('ru', '1365552171')
+a_reviews = AppStore('ru', {app_store})
 a_reviews.review()
 
 
