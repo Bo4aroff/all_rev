@@ -26,8 +26,8 @@ with st.form('Search_words'):
 
     search = st.form_submit_button("Поиск")
     if search:
-        step_one = "play_market"
-        step_two = "app_store"
+        step_one = (play_market)
+        step_two = (app_store)
 
 
 g_reviews = reviews_all(
