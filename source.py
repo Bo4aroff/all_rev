@@ -20,7 +20,7 @@ with st.form('Search_words'):
     play_market = st.text_input('PlayMarket_Id')
     app_one = st.text_input('App_ID')
     app_two = st.text_input('App_numID')
-
+if st.checkbox('Показать аналитику'):
 g_reviews = reviews_all(
         play_market,
         sleep_milliseconds=0, # defaults to 0
