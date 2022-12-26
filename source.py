@@ -8,7 +8,15 @@ import base64
 from io import StringIO, BytesIO
 import streamlit as st
 
+with st.form('Search_words'):
+    play_market = st.text_input('Play Market_ID')
+    app_store = st.text_input('App Store_ID')
 
+    search = st.form_submit_button("Поиск")
+    if search:
+        step_one = [play_market]
+        step_two = [app_store]
+        
 def generate_excel_download_link(df_2):
     # Credit Excel: https://discuss.streamlit.io/t/how-to-add-a-download-excel-csv-function-to-a-button/4474/5
     towrite = BytesIO()
@@ -18,17 +26,10 @@ def generate_excel_download_link(df_2):
     href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="data_download.xlsx">Download Excel File</a>'
     return st.markdown(href, unsafe_allow_html=True)
 
-with st.form('Search_words'):
-    play_market = st.text_input('Play Market_ID')
-    app_store = st.text_input('App Store_ID')
 
-    search = st.form_submit_button("Поиск")
-    if search:
-        step_one = [play_market]
-        step_two = [app_store]
 
 g_reviews = reviews_all(
-        [step_one],
+        'step_one',
         sleep_milliseconds=0, # defaults to 0
         lang='ru', # defaults to 'en'
         country='us', # defaults to 'us'
@@ -43,7 +44,7 @@ g_df2.insert(loc=0, column='source', value='Google Play')
 g_df2.insert(loc=3, column='review_title', value=None)
 
 
-a_reviews = AppStore('ru', [step_two])
+a_reviews = AppStore('ru', 'step_two')
 a_reviews.review()
 
 
