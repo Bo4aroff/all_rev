@@ -23,10 +23,12 @@ with st.form('Search_words'):
     app_store = st.text_input('App Store_ID')
 
     search = st.form_submit_button("Поиск")
-    
-    
+
+step_one = [play_market]
+step_two = [app_store]
+
 g_reviews = reviews_all(
-        play_market,
+        step_one,
         sleep_milliseconds=0, # defaults to 0
         lang='ru', # defaults to 'en'
         country='us', # defaults to 'us'
@@ -41,7 +43,7 @@ g_df2.insert(loc=0, column='source', value='Google Play')
 g_df2.insert(loc=3, column='review_title', value=None)
 
 
-a_reviews = AppStore('ru', app_store)
+a_reviews = AppStore('ru', step_two)
 a_reviews.review()
 
 
