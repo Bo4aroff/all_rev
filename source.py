@@ -18,14 +18,14 @@ def generate_excel_download_link(df_2):
     href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="data_download.xlsx">Download Excel File</a>'
     return st.markdown(href, unsafe_allow_html=True)
 
-# with st.form('Search_words'):
-#     play_market = st.text_input('Play Market_ID')
-#     app_store = st.text_input('App Store_ID')
+with st.form('Search_words'):
+    play_market = st.text_input('Play Market_ID')
+    app_store = st.text_input('App Store_ID')
 
-#     search = st.form_submit_button("Поиск")
-
-# step_one = [play_market]
-# step_two = [app_store]
+    search = st.form_submit_button("Поиск")
+    if search:
+        step_one = [play_market]
+        step_two = [app_store]
 
 g_reviews = reviews_all(
         'ru.dmo.motherandchild',
