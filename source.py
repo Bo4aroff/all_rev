@@ -6,6 +6,7 @@ import numpy as np
 import plotly.express as px
 import base64
 from io import StringIO, BytesIO
+import streamlit as st
 
 
 def generate_excel_download_link(df_2):
@@ -69,11 +70,6 @@ a_df2.sort_values(by='review_date', inplace=True)
 a_df2.loc[a_df2['rating'] < 4, 'рейтинг'] = 'Отрицательный'
 a_df2.loc[a_df2['rating'] >= 4, 'рейтинг'] = 'Положительный'
 a_df2.loc[a_df2['rating'] > 0, 'value'] = 1
-
-
-
-import streamlit as st
-
 
 
 st.set_page_config(page_title='Отзывы_SM', layout='wide')
