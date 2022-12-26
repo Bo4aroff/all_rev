@@ -17,24 +17,30 @@ def generate_excel_download_link(df_2):
     href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="data_download.xlsx">Download Excel File</a>'
     return st.markdown(href, unsafe_allow_html=True)
 
+with st.form('Search_words'):
+    play_market = st.text_input('Play Market_ID')
+    app_store = st.text_input('App Store_ID')
 
-# g_reviews = reviews_all(
-#         "ru.mts.smartmed",
-#         sleep_milliseconds=0, # defaults to 0
-#         lang='ru', # defaults to 'en'
-#         country='us', # defaults to 'us'
-#         sort=Sort.NEWEST, # defaults to Sort.MOST_RELEVANT
-#     )
-# g_df = pd.DataFrame(np.array(g_reviews),columns=['review'])
-# g_df2 = g_df.join(pd.DataFrame(g_df.pop('review').tolist()))
+    search = st.form_submit_button("Поиск")
+    
+    
+g_reviews = reviews_all(
+        play_market,
+        sleep_milliseconds=0, # defaults to 0
+        lang='ru', # defaults to 'en'
+        country='us', # defaults to 'us'
+        sort=Sort.NEWEST, # defaults to Sort.MOST_RELEVANT
+    )
+g_df = pd.DataFrame(np.array(g_reviews),columns=['review'])
+g_df2 = g_df.join(pd.DataFrame(g_df.pop('review').tolist()))
 
-# g_df2.drop(columns={'userImage', 'reviewCreatedVersion'},inplace = True)
-# g_df2.rename(columns= {'score': 'rating','userName': 'user_name', 'reviewId': 'review_id', 'content': 'review_description', 'at': 'review_date', 'replyContent': 'developer_response', 'repliedAt': 'developer_response_date', 'thumbsUpCount': 'thumbs_up'},inplace = True)
-# g_df2.insert(loc=0, column='source', value='Google Play')
-# g_df2.insert(loc=3, column='review_title', value=None)
+g_df2.drop(columns={'userImage', 'reviewCreatedVersion'},inplace = True)
+g_df2.rename(columns= {'score': 'rating','userName': 'user_name', 'reviewId': 'review_id', 'content': 'review_description', 'at': 'review_date', 'replyContent': 'developer_response', 'repliedAt': 'developer_response_date', 'thumbsUpCount': 'thumbs_up'},inplace = True)
+g_df2.insert(loc=0, column='source', value='Google Play')
+g_df2.insert(loc=3, column='review_title', value=None)
 
 
-a_reviews = AppStore('ru', '1365552171')
+a_reviews = AppStore('ru', app_store)
 a_reviews.review()
 
 
@@ -49,7 +55,7 @@ a_df2_.insert(loc=1, column='review_id', value=[uuid.uuid4() for _ in range(len(
 a_df2_.rename(columns= {'review': 'review_description','userName': 'user_name', 'date': 'review_date','title': 'review_title', 'developerResponse': 'developer_response'},inplace = True)
 a_df2_ = a_df2_.where(pd.notnull(a_df2_), None)
 
-a_df2 = a_df2_
+a_df2 = pd.concat([g_df2,a_df2_])
 
 
 a_df2['review_date'] = a_df2['review_date'].dt.strftime('%m/%d/%Y')
