@@ -21,7 +21,6 @@ with st.form('Search_words'):
     app_one = st.text_input('App_ID')
     app_two = st.text_input('App_numID')
 
-if st.checkbox('Показать аналитику'):
 g_reviews = reviews_all(
         play_market,
         sleep_milliseconds=0, # defaults to 0
