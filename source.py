@@ -29,39 +29,78 @@ def generate_excel_download_link(df_2):
 #         step_one = {play_market}
 #         step_two = {app_store}
 
-
+#Мать и дитя - гугл
 g_motherandchild = reviews_all(
         'ru.dmo.motherandchild',
-        sleep_milliseconds=0, # defaults to 0
-        lang='ru', # defaults to 'en'
-        country='us', # defaults to 'us'
-        sort=Sort.NEWEST, # defaults to Sort.MOST_RELEVANT
+        sleep_milliseconds=0,
+        lang='ru',
+        country='us',
+        sort=Sort.NEWEST,
     )
-g_df = pd.DataFrame(np.array(g_reviews),columns=['review'])
+g_df = pd.DataFrame(np.array(g_motherandchild),columns=['review'])
 g_df2 = g_df.join(pd.DataFrame(g_df.pop('review').tolist()))
 
 g_df2.drop(columns={'userImage', 'reviewCreatedVersion'},inplace = True, axis=1)
 g_df2.rename(columns= {'score': 'rating','userName': 'user_name', 'reviewId': 'review_id', 'content': 'review_description', 'at': 'review_date', 'replyContent': 'developer_response', 'repliedAt': 'developer_response_date', 'thumbsUpCount': 'thumbs_up'},inplace = True)
 g_df2.insert(loc=0, column='source', value='Google Play')
+g_df2.insert(loc=1, column='programm', value='Мать и дитя')
 g_df2.insert(loc=3, column='review_title', value=None)
 
 
 a_motherandchild = AppStore('ru', '1365552171')
-a_reviews.review()
+a_motherandchild.review()
 
 
-a_df = pd.DataFrame(np.array(a_reviews.reviews), columns=['review'])
+a_df = pd.DataFrame(np.array(a_motherandchild.review), columns=['review'])
 a_df2_ = a_df.join(pd.DataFrame(a_df.pop('review').tolist()))
 
 a_df2_.drop(columns={'isEdited'},inplace = True, axis=1)
 a_df2_.insert(loc=0, column='source', value='App Store')
+a_df2_.insert(loc=1, column='programm', value='Мать и дитя')
 a_df2_['developer_response_date'] = None
 a_df2_['thumbs_up'] = None
 a_df2_.insert(loc=1, column='review_id', value=[uuid.uuid4() for _ in range(len(a_df2_.index))])
 a_df2_.rename(columns= {'review': 'review_description','userName': 'user_name', 'date': 'review_date','title': 'review_title', 'developerResponse': 'developer_response'},inplace = True)
 a_df2_ = a_df2_.where(pd.notnull(a_df2_), None)
 
-a_df2 = pd.concat([g_df2,a_df2_])
+#smartmed
+g_smartmed = reviews_all(
+        'ru.mts.smartmed',
+        sleep_milliseconds=0,
+        lang='ru',
+        country='us',
+        sort=Sort.NEWEST,
+    )
+g_df_ = pd.DataFrame(np.array(g_smartmed),columns=['review'])
+g_df3 = g_df_.join(pd.DataFrame(g_df_.pop('review').tolist()))
+
+g_df3.drop(columns={'userImage', 'reviewCreatedVersion'},inplace = True, axis=1)
+g_df3.rename(columns= {'score': 'rating','userName': 'user_name', 'reviewId': 'review_id', 'content': 'review_description', 'at': 'review_date', 'replyContent': 'developer_response', 'repliedAt': 'developer_response_date', 'thumbsUpCount': 'thumbs_up'},inplace = True)
+g_df3.insert(loc=0, column='source', value='Google Play')
+g_df3.insert(loc=1, column='programm', value='SmartMed')
+g_df3.insert(loc=3, column='review_title', value=None)
+
+
+a_smartmed = AppStore('ru', 'smartmed', '1348775741')
+a_smartmed.review()
+
+
+a_df_ = pd.DataFrame(np.array(a_smartmed.review), columns=['review'])
+a_df3_ = a_df_.join(pd.DataFrame(a_df_.pop('review').tolist()))
+
+a_df3_.drop(columns={'isEdited'},inplace = True, axis=1)
+a_df3_.insert(loc=0, column='source', value='App Store')
+a_df3_.insert(loc=1, column='programm', value='SmartMed')
+a_df3_['developer_response_date'] = None
+a_df3_['thumbs_up'] = None
+a_df3_.insert(loc=1, column='review_id', value=[uuid.uuid4() for _ in range(len(a_df3_.index))])
+a_df3_.rename(columns= {'review': 'review_description','userName': 'user_name', 'date': 'review_date','title': 'review_title', 'developerResponse': 'developer_response'},inplace = True)
+a_df3_ = a_df3_.where(pd.notnull(a_df3_), None)
+
+
+#Объеденил
+a_df2 = pd.concat([g_df2,a_df2_, g_df3, a_df3_])
+
 
 
 a_df2['review_date'] = a_df2['review_date'].dt.strftime('%m/%d/%Y')
