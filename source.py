@@ -36,7 +36,7 @@ g_df2.insert(loc=0, column='source', value='Google Play')
 g_df2.insert(loc=3, column='review_title', value=None)
 g_df2['Приложение'] = 'Мать и дитя'
 
-a_motherand = AppStore('ru', '1536531134')
+a_motherand = AppStore('ru', 'hello-doc-для-пациента', '1536531134')
 a_motherand.review()
 
 
