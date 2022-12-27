@@ -36,7 +36,7 @@ g_df2.insert(loc=0, column='source', value='Google Play')
 g_df2.insert(loc=3, column='review_title', value=None)
 g_df2['Приложение'] = 'Мать и дитя'
 
-a_motherand = AppStore('ru', 'hello-doc', '1536531134')
+a_motherand = AppStore('ru', '1536531134')
 a_motherand.review()
 
 
@@ -52,7 +52,7 @@ a_df2_.insert(loc=1, column='review_id', value=[uuid.uuid4() for _ in range(len(
 a_df2_.rename(columns= {'review': 'review_description','userName': 'user_name', 'date': 'review_date','title': 'review_title', 'developerResponse': 'developer_response'},inplace = True)
 a_df2_ = a_df2_.where(pd.notnull(a_df2_), None)
 
-a_df2 = pd.concat([g_df2,a_df2_])
+a_df2 = pd.concat([g_df2, a_df2_])
 
 
 
