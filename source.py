@@ -90,6 +90,7 @@ a_df3_.rename(columns= {'review': 'review_description','userName': 'user_name', 
 a_df3_ = a_df3_.where(pd.notnull(a_df3_), None)
 
 
+
 #Доктор рядом
 g_docnear = reviews_all(
         'ru.drclinics.app.docnear',
