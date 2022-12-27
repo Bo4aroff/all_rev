@@ -21,7 +21,7 @@ def generate_excel_download_link(df_2):
     return st.markdown(href, unsafe_allow_html=True)
 
 g_motherand = reviews_all(
-        "ru.dmo.motherandchild",
+        "app.hellodoc.outpatient",
         sleep_milliseconds=0, # defaults to 0
         lang='ru', # defaults to 'en'
         country='us', # defaults to 'us'
@@ -36,7 +36,7 @@ g_df2.insert(loc=0, column='source', value='Google Play')
 g_df2.insert(loc=3, column='review_title', value=None)
 g_df2['Приложение'] = 'Мать и дитя'
 
-a_motherand = AppStore('ru', 'moter-and-child', '1365552171')
+a_motherand = AppStore('ru', 'hello-doc', '1536531134')
 a_motherand.review()
 
 
