@@ -89,22 +89,22 @@ a_df3_ = a_df3_.where(pd.notnull(a_df3_), None)
 
 
 
-#Доктор рядом
-# g_docnear = reviews_all(
-#         'ru.drclinics.app.docnear',
-#         sleep_milliseconds=0,
-#         lang='ru',
-#         country='us',
-#         sort=Sort.NEWEST,
-#     )
-# g_df_1 = pd.DataFrame(np.array(g_docnear),columns=['review'])
-# g_df4 = g_df_1.join(pd.DataFrame(g_df_1.pop('review').tolist()))
+# Доктор рядом
+g_docnear = reviews_all(
+        'ru.drclinics.app.docnear',
+        sleep_milliseconds=0,
+        lang='ru',
+        country='us',
+        sort=Sort.NEWEST,
+    )
+g_df_1 = pd.DataFrame(np.array(g_docnear),columns=['review'])
+g_df4 = g_df_1.join(pd.DataFrame(g_df_1.pop('review').tolist()))
 
-# g_df4.drop(columns={'userImage', 'reviewCreatedVersion'},inplace = True, axis=1)
-# g_df4.rename(columns= {'score': 'rating','userName': 'user_name', 'reviewId': 'review_id', 'content': 'review_description', 'at': 'review_date', 'replyContent': 'developer_response', 'repliedAt': 'developer_response_date', 'thumbsUpCount': 'thumbs_up'},inplace = True)
-# g_df4.insert(loc=0, column='source', value='Google Play')
-# g_df4['Приложение'] = 'Доктор рядом'
-# g_df4.insert(loc=3, column='review_title', value=None)
+g_df4.drop(columns={'userImage', 'reviewCreatedVersion'},inplace = True, axis=1)
+g_df4.rename(columns= {'score': 'rating','userName': 'user_name', 'reviewId': 'review_id', 'content': 'review_description', 'at': 'review_date', 'replyContent': 'developer_response', 'repliedAt': 'developer_response_date', 'thumbsUpCount': 'thumbs_up'},inplace = True)
+g_df4.insert(loc=0, column='source', value='Google Play')
+g_df4['Приложение'] = 'Доктор рядом'
+g_df4.insert(loc=3, column='review_title', value=None)
 
 
 # a_docnear = AppStore('ru', '1185494141')
