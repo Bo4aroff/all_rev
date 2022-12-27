@@ -43,7 +43,7 @@ a_motherand.review()
 a_df = pd.DataFrame(np.array(a_motherand.reviews), columns=['review'])
 a_df2_ = a_df.join(pd.DataFrame(a_df.pop('review').tolist()))
 
-a_df2_.drop(columns={'isEdited'},inplace = True)
+a_df2_.drop(columns={'isEdited'},inplace = True, axis=1)
 a_df2_.insert(loc=0, column='source', value='App Store')
 a_df2_['Приложение'] = 'Мать и дитя'
 a_df2_['developer_response_date'] = None
