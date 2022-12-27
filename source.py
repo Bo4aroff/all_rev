@@ -130,12 +130,13 @@ st.sidebar.header('Фильтры:')
 # year_ = st.sidebar.multiselect("Год", options=a_df2['year'].unique(), default=a_df2['year'].unique())
 year_ = st.selectbox('ВЫБИРИТЕ ГОД', year_options, 0)
 market = st.sidebar.multiselect("Ресурс", options=a_df2['source'].unique(), default=a_df2['source'].unique())
+prog = st.sidebar.multiselect("Приложение", options=a_df2['Приложение'].unique(), default=a_df2['Приложение'].unique())
 month_ = st.sidebar.multiselect("Месяц", options=a_df2['month'].unique(), default=a_df2['month'].unique())
 raiting = st.sidebar.multiselect("Рейтинг", options=a_df2['рейтинг'].unique(), default=a_df2['рейтинг'].unique())
 
 
 # month_ = st.slider("Month", max_value=max(a_df2['month'].unique().tolist()), min_value=min(a_df2['month'].unique().tolist()), value=(max(a_df2['month'].unique().tolist()), min(a_df2['month'].unique().tolist())))
-df_selection = a_df2.query("рейтинг == @raiting & year == @year_ & month == @month_ & source == @market")
+df_selection = a_df2.query("рейтинг == @raiting & year == @year_ & month == @month_ & source == @market & Приложение == @prog")
 
 st.title(":bar_chart: Основные показатели")
 st.markdown('##')
@@ -153,7 +154,7 @@ st.markdown("---")
 # rating_by_value = (df_selection.groupby(by=['рейтинг']).sum()[['value']].sort_values(by="value"))
 fig_rating = px.bar(df_selection,
                     x="value",
-                    y='source',
+                    y='Приложение',
                     orientation="h",
                     title="<b>Оценки</b>",
                     color='рейтинг',
