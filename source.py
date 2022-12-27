@@ -45,8 +45,7 @@ a_motherandchild.review()
 
 a_df = pd.DataFrame(np.array(a_motherandchild.reviews), columns=['review'])
 a_df2_ = a_df.join(pd.DataFrame(a_df.pop('review').tolist()))
-
-# a_df2_.drop(columns={'isEdited'},inplace = True, axis=1)
+a_df2_.drop(columns={'isEdited'}, inplace = True, axis=1)
 a_df2_.insert(loc=0, column='source', value='App Store')
 a_df2_['Приложение'] = 'Мать и Дитя'
 a_df2_['developer_response_date'] = None
@@ -63,7 +62,7 @@ g_smartmed = reviews_all(
         country='us',
         sort=Sort.NEWEST,
     )
-g_df_ = pd.DataFrame(np.array(g_smartmed),columns=['review'])
+g_df_ = pd.DataFrame(np.array(g_smartmed), columns=['review'])
 g_df3 = g_df_.join(pd.DataFrame(g_df_.pop('review').tolist()))
 
 g_df3.drop(columns={'userImage', 'reviewCreatedVersion'},inplace = True, axis=1)
@@ -79,8 +78,7 @@ a_smartmed.review()
 
 a_df_ = pd.DataFrame(np.array(a_smartmed.reviews), columns=['review'])
 a_df3_ = a_df_.join(pd.DataFrame(a_df_.pop('review').tolist()))
-
-# a_df3_.drop(columns={'isEdited'},inplace = True, axis=1)
+a_df3_.drop(columns={'isEdited'}, inplace = True, axis=1)
 a_df3_.insert(loc=0, column='source', value='App Store')
 a_df3_['Приложение'] = 'SmartMed'
 a_df3_['developer_response_date'] = None
