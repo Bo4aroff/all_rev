@@ -52,7 +52,7 @@ a_motherandchild = AppStore('ru', '1365552171')
 a_motherandchild.review()
 
 
-a_df = pd.DataFrame(np.array(a_motherandchild.motherandchild), columns=['review'])
+a_df = pd.DataFrame(np.array(a_motherandchild.reviews), columns=['review'])
 a_df2_ = a_df.join(pd.DataFrame(a_df.pop('review').tolist()))
 
 a_df2_.drop(columns={'isEdited'},inplace = True, axis=1)
@@ -87,7 +87,7 @@ a_smartmed = AppStore('ru', 'smartmed', '1348775741')
 a_smartmed.review()
 
 
-a_df_ = pd.DataFrame(np.array(a_smartmed.smartmed), columns=['review'])
+a_df_ = pd.DataFrame(np.array(a_smartmed.reviews), columns=['review'])
 a_df3_ = a_df_.join(pd.DataFrame(a_df_.pop('review').tolist()))
 
 a_df3_.drop(columns={'isEdited'},inplace = True, axis=1)
