@@ -21,7 +21,7 @@ def generate_excel_download_link(df_2):
     return st.markdown(href, unsafe_allow_html=True)
 
 
-#Мать и дитя - гугл
+#Мать и дитя
 g_motherandchild = reviews_all(
         'ru.dmo.motherandchild',
         sleep_milliseconds=0,
@@ -46,7 +46,7 @@ a_motherandchild.review()
 a_df = pd.DataFrame(np.array(a_motherandchild.reviews), columns=['review'])
 a_df2_ = a_df.join(pd.DataFrame(a_df.pop('review').tolist()))
 
-a_df2_.drop(columns={'isEdited'},inplace = True, axis=1)
+# a_df2_.drop(columns={'isEdited'},inplace = True, axis=1)
 a_df2_.insert(loc=0, column='source', value='App Store')
 a_df2_['Приложение'] = 'Мать и Дитя'
 a_df2_['developer_response_date'] = None
@@ -80,7 +80,7 @@ a_smartmed.review()
 a_df_ = pd.DataFrame(np.array(a_smartmed.reviews), columns=['review'])
 a_df3_ = a_df_.join(pd.DataFrame(a_df_.pop('review').tolist()))
 
-a_df3_.drop(columns={'isEdited'},inplace = True, axis=1)
+# a_df3_.drop(columns={'isEdited'},inplace = True, axis=1)
 a_df3_.insert(loc=0, column='source', value='App Store')
 a_df3_['Приложение'] = 'SmartMed'
 a_df3_['developer_response_date'] = None
@@ -116,7 +116,7 @@ a_docnear.review()
 a_df_1 = pd.DataFrame(np.array(a_docnear.reviews), columns=['review'])
 a_df4_ = a_df_1.join(pd.DataFrame(a_df_1.pop('review').tolist()))
 
-a_df4_.drop(columns={'isEdited'},inplace = True, axis=1)
+# a_df4_.drop(columns={'isEdited'},inplace = True, axis=1)
 a_df4_.insert(loc=0, column='source', value='App Store')
 a_df4_['Приложение'] = 'Неарклиник (Доктор рядом ios)'
 a_df4_['developer_response_date'] = None
