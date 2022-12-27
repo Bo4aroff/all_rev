@@ -30,8 +30,8 @@ def generate_excel_download_link(df_2):
 #         step_two = {app_store}
 
 
-g_reviews = reviews_all(
-        'ru.drclinics.app.docnear',
+g_motherandchild = reviews_all(
+        'ru.dmo.motherandchild',
         sleep_milliseconds=0, # defaults to 0
         lang='ru', # defaults to 'en'
         country='us', # defaults to 'us'
@@ -46,7 +46,7 @@ g_df2.insert(loc=0, column='source', value='Google Play')
 g_df2.insert(loc=3, column='review_title', value=None)
 
 
-a_reviews = AppStore('ru', '1293844621')
+a_motherandchild = AppStore('ru', '1365552171')
 a_reviews.review()
 
 
