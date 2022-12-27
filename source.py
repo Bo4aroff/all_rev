@@ -124,7 +124,7 @@ a_df3_ = a_df3_.where(pd.notnull(a_df3_), None)
 # a_df4_ = a_df4_.where(pd.notnull(a_df4_), None)
 
 #Объеденил
-a_df2 = pd.concat([g_df2,a_df2_, g_df3, a_df3_, g_df4])
+a_df2 = pd.concat([g_df2,a_df2_, g_df3, a_df3_])
 
 
 
