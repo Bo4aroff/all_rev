@@ -72,7 +72,7 @@ g_df3['Приложение'] = 'SmartMed'
 g_df3.insert(loc=3, column='review_title', value=None)
 
 
-a_smartmed = AppStore('ru', '1348775741')
+a_smartmed = AppStore('ru', 'smartmed', '1348775741')
 a_smartmed.review()
 
 
